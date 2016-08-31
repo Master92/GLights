@@ -21,7 +21,7 @@ GlightsAboutDialog::GlightsAboutDialog(Gtk::Window& parent) {
     this->set_name("GLights");
     this->set_version("0.1b");
     this->set_transient_for(parent);
-    this->set_license_type(Gtk::LICENSE_GPL_3_0);
+    this->set_license_type(Gtk::LICENSE_GPL_2_0);
     this->set_copyright("Nils Friedchen");
     
     std::vector<Glib::ustring> authors;

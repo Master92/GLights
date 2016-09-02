@@ -2,9 +2,4 @@
 /build/
 /dist/
 .dep.inc
-auto*
-compile
-depcomp
-install-sh
-missing
 

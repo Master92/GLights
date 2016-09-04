@@ -77,6 +77,7 @@ void on_connect() {
         connect_menu_item->set_sensitive(false);
         disconnect_menu_item->set_sensitive();
         clock_button->set_sensitive();
+        next_button->set_sensitive();
         timer_button->set_sensitive();
         new_button->set_sensitive();
         runtext_entry->set_sensitive();
@@ -145,6 +146,7 @@ void on_timer() {
         opts.push_back((char)dia.get_hours());
         opts.push_back((char)dia.get_minutes());
         opts.push_back((char)dia.get_seconds());
+        opts.push_back((char)127);
         
         for(int i = 0; i < communicators; i++) {
             comm[i]->SendMessage(aip::TIMER, opts);
@@ -161,12 +163,15 @@ void on_new() {
         tmp = dia.get_duration();
         du1 = tmp / 10;
         du2 = tmp - du1*10;
+        char group = (dia.get_group()) ? '1' : '0';
+        std::cout << group << std::endl;
         
         opts.push_back((char)dia.get_ammount());
         opts.push_back((char)dia.get_preparation());
         opts.push_back((char)du1);
         opts.push_back((char)du2);
-        opts.push_back((char)('0' + dia.get_group()));
+        opts.push_back(group);
+        opts.push_back((char)127);
         
         for(int i = 0; i < communicators; i++) {
             comm[i]->SendMessage(aip::NEW_ROUND, opts);
@@ -180,6 +185,7 @@ void on_new() {
 
 void on_runtext_send() {
     Glib::ustring message = runtext_entry->get_text();
+    message.push_back((char)127);
     
     if(message.size() > 0) {
         for(int i = 0; i < communicators; i++) {

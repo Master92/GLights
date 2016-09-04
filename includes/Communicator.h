@@ -56,6 +56,7 @@ class Communicator
 
     private:
         void Send(char* buffer);
+        int StrLen(Glib::ustring message);
         int sockfd;
 };
 

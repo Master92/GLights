@@ -55,10 +55,10 @@ void Communicator::SendMessage(int msgCode, Glib::ustring message) {
     char buffer[129];
     
     bzero(buffer, sizeof(buffer));
-    buffer[0] = message.length() + 2;
+    buffer[0] = this->StrLen(message) + 2;
     buffer[1] = msgCode;
     
-    for(int i = 0; i < 127 && i < message.size(); i++) {
+    for(int i = 0; i < 127 && i <= buffer[0]; i++) {
         buffer[i+2] = message[i];
     }
     
@@ -66,7 +66,7 @@ void Communicator::SendMessage(int msgCode, Glib::ustring message) {
 }
 
 void Communicator::Send(char* buffer) {
-    int command = buffer[0];
+    int command = buffer[1];
     
     switch(command) {
         case aip::TIMER:
@@ -120,6 +120,14 @@ Communicator::return_values Communicator::ReceiveMsg() {
     values.max_ends = buffer[6];
     
     return values;
+}
+
+int Communicator::StrLen(Glib::ustring message) {
+    int len = 0;
+    char c = message[0];
+    while(c != 127) {
+        c = message[++len];
+    }
 }
 
 Communicator::~Communicator()

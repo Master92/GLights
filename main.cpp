@@ -177,7 +177,6 @@ void on_new() {
         du1 = tmp / 10;
         du2 = tmp - du1*10;
         char group = (dia.get_group()) ? '1' : '0';
-        std::cout << group << std::endl;
         
         opts.push_back((char)dia.get_ammount());
         opts.push_back((char)dia.get_preparation());

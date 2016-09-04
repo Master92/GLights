@@ -33,7 +33,7 @@ Communicator::Communicator(const char* addr)
 
     bzero((char*)&serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = inet_addr(/*addr*/"10.42.0.147");
+    serv_addr.sin_addr.s_addr = inet_addr(addr);
     serv_addr.sin_port = htons(portno);
 
     if(connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
@@ -69,7 +69,7 @@ void Communicator::SendMessage(int msgCode, Glib::ustring message) {
 void Communicator::Send(char* buffer) {
     int command = buffer[1];
     
-    switch(command) {
+    /*switch(command) {
         case aip::TIMER:
             std::cout << int(buffer[2]) << ':' << int(buffer[3]) << ':' << int(buffer[4]) << std::endl;
             break;
@@ -94,16 +94,13 @@ void Communicator::Send(char* buffer) {
             break;
             
         default:
-            std::cout << buffer << std::endl;
             break;
-    }
+    }*/
     
     write(sockfd, buffer, buffer[0]);
     bzero(buffer, strlen(buffer));
 }
 
-int timer = 60;
-int group = 0;
 void Communicator::ReceiveMsg(char* buffer)
 {
     read(sockfd, buffer, sizeof(buffer)/sizeof(char));
@@ -128,10 +125,8 @@ int Communicator::StrLen(Glib::ustring message) {
     char c = message[0];
     while(c != (char)127) {
         ++len;
-        std::cout << int(c) << ' ';
         c = message[len];
     }
-    std::cout << std::endl;
     return ++len;
 }
 

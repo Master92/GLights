@@ -49,8 +49,9 @@ void send_time_updates() {
     struct tm * tme;
     tme = localtime(&rawtime);
 
-    char date[14];
+    char date[15];
     strftime(date, 15, "%Y%m%d%H%M%S", tme);
+    date[14] = (char)127;
 
     for(int i = 0; i < communicators; i++) {
         comm[i]->SendMessage(aip::SYNC, date);
@@ -118,6 +119,18 @@ void on_quit() {
 void on_about() {
     GlightsAboutDialog dia(*window);
     dia.run();
+}
+
+void on_del_end() {
+    for(int i = 0; i < communicators; i++) {
+        comm[i]->SendMessage(aip::DEL_END);
+    }
+}
+
+void on_add_end() {
+    for(int i = 0; i < communicators; i++) {
+        comm[i]->SendMessage(aip::ADD_END);
+    }
 }
 
 void on_next() {
@@ -233,6 +246,8 @@ int main(int argc, char** argv) {
     builder->get_widget("about_menu_item", menuItem);
     menuItem->signal_activate().connect(sigc::ptr_fun(on_about));
     
+    del_end_button->signal_clicked().connect(sigc::ptr_fun(on_del_end));
+    add_end_button->signal_clicked().connect(sigc::ptr_fun(on_add_end));
     next_button->signal_clicked().connect(sigc::ptr_fun(on_next));
     clock_button->signal_clicked().connect(sigc::ptr_fun(on_clock));
     timer_button->signal_clicked().connect(sigc::ptr_fun(on_timer));

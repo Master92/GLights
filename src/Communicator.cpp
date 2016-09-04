@@ -44,9 +44,10 @@ Communicator::Communicator(const char* addr)
 
 void Communicator::SendMessage(int msgCode)
 {
-    char buffer[2];
-    buffer[0] = 2;
+    char buffer[3];
+    buffer[0] = 3;
     buffer[1] = msgCode;
+    buffer[2] = 127;
 
     Send(buffer);
 }
@@ -55,7 +56,7 @@ void Communicator::SendMessage(int msgCode, Glib::ustring message) {
     char buffer[129];
     
     bzero(buffer, sizeof(buffer));
-    buffer[0] = this->StrLen(message) + 2;
+    buffer[0] = StrLen(message) + 2;
     buffer[1] = msgCode;
     
     for(int i = 0; i < 127 && i <= buffer[0]; i++) {
@@ -97,7 +98,7 @@ void Communicator::Send(char* buffer) {
             break;
     }
     
-    send(sockfd, buffer, strlen(buffer), MSG_CONFIRM);
+    write(sockfd, buffer, buffer[0]);
     bzero(buffer, strlen(buffer));
 }
 
@@ -125,9 +126,13 @@ Communicator::return_values Communicator::ReceiveMsg() {
 int Communicator::StrLen(Glib::ustring message) {
     int len = 0;
     char c = message[0];
-    while(c != 127) {
-        c = message[++len];
+    while(c != (char)127) {
+        ++len;
+        std::cout << int(c) << ' ';
+        c = message[len];
     }
+    std::cout << std::endl;
+    return ++len;
 }
 
 Communicator::~Communicator()

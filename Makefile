@@ -1,128 +1,100 @@
-#
-#  There exist several targets which are by default empty and which can be 
-#  used for execution of your targets. These targets are usually executed 
-#  before and after some main targets. They are: 
-#
-#     .build-pre:              called before 'build' target
-#     .build-post:             called after 'build' target
-#     .clean-pre:              called before 'clean' target
-#     .clean-post:             called after 'clean' target
-#     .clobber-pre:            called before 'clobber' target
-#     .clobber-post:           called after 'clobber' target
-#     .all-pre:                called before 'all' target
-#     .all-post:               called after 'all' target
-#     .help-pre:               called before 'help' target
-#     .help-post:              called after 'help' target
-#
-#  Targets beginning with '.' are not intended to be called on their own.
-#
-#  Main targets can be executed directly, and they are:
-#  
-#     build                    build a specific configuration
-#     clean                    remove built files from a configuration
-#     clobber                  remove all built files
-#     all                      build all configurations
-#     help                     print help mesage
-#  
-#  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
-#  .help-impl are implemented in nbproject/makefile-impl.mk.
-#
-#  Available make variables:
-#
-#     CND_BASEDIR                base directory for relative paths
-#     CND_DISTDIR                default top distribution directory (build artifacts)
-#     CND_BUILDDIR               default top build directory (object files, ...)
-#     CONF                       name of current configuration
-#     CND_PLATFORM_${CONF}       platform name (current configuration)
-#     CND_ARTIFACT_DIR_${CONF}   directory of build artifact (current configuration)
-#     CND_ARTIFACT_NAME_${CONF}  name of build artifact (current configuration)
-#     CND_ARTIFACT_PATH_${CONF}  path to build artifact (current configuration)
-#     CND_PACKAGE_DIR_${CONF}    directory of package (current configuration)
-#     CND_PACKAGE_NAME_${CONF}   name of package (current configuration)
-#     CND_PACKAGE_PATH_${CONF}   path to package (current configuration)
-#
-# NOCDDL
+## -*- Makefile -*-
+##
+## User: nils
+## Time: 04.09.2016 11:11:05
+## Makefile created by Oracle Developer Studio.
+##
+## This file is generated automatically.
+##
 
 
-# Environment 
-MKDIR=mkdir
-CP=cp
-CCADMIN=CCadmin
+#### Compiler and tool definitions shared by all build targets #####
+CCC = g++
+CXX = g++
+BASICOPTS = -g
+CCFLAGS = $(BASICOPTS) `pkg-config --cflags gtkmm-3.0`
+CXXFLAGS = $(BASICOPTS) `pkg-config --cflags gtkmm-3.0`
+CCADMIN = 
 
 
-# build
-build: .build-post
-
-.build-pre:
-# Add your pre 'build' code here...
-
-.build-post: .build-impl
-# Add your post 'build' code here...
+# Define the target directories.
+BINDIR=bin
+DISTDIR=dist
 
 
-# clean
-clean: .clean-post
+all: $(DISTDIR)/GLights
 
-.clean-pre:
-# Add your pre 'clean' code here...
-
-.clean-post: .clean-impl
-# Add your post 'clean' code here...
-
-
-# clobber
-clobber: .clobber-post
-
-.clobber-pre:
-# Add your pre 'clobber' code here...
-
-.clobber-post: .clobber-impl
-# Add your post 'clobber' code here...
+## Target: GLights
+CPPFLAGS_GLights = \
+	-Iincludes
+OBJS =  \
+	$(BINDIR)/main.o \
+	$(BINDIR)/GlightsNewRoundDialog.o \
+	$(BINDIR)/UpdateThread.o \
+	$(BINDIR)/Communicator.o \
+	$(BINDIR)/GlightsAboutDialog.o \
+	$(BINDIR)/GlightsTimerDialog.o \
+	$(BINDIR)/GlightsConnectDialog.o
+USERLIBS = `pkg-config --libs gtkmm-3.0` $(SYSLIBS_GLights) 
+LIBS =   
+LDLIBS_GLights = $(USERLIBS)
 
 
-# all
-all: .all-post
-
-.all-pre:
-# Add your pre 'all' code here...
-
-.all-post: .all-impl
-# Add your post 'all' code here...
+# Link or archive
+$(DISTDIR)/GLights: $(BINDIR) $(DISTDIR) $(OBJS) $(LIBS)
+	$(LINK.cc) -o $@ $(OBJS) $(LDLIBS_GLights)
 
 
-# build tests
-build-tests: .build-tests-post
+# Compile source files into .o files
+$(BINDIR)/main.o: $(BINDIR) main.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ main.cpp
 
-.build-tests-pre:
-# Add your pre 'build-tests' code here...
+$(BINDIR)/GlightsNewRoundDialog.o: $(BINDIR) src/GlightsNewRoundDialog.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/GlightsNewRoundDialog.cpp
 
-.build-tests-post: .build-tests-impl
-# Add your post 'build-tests' code here...
+$(BINDIR)/UpdateThread.o: $(BINDIR) src/UpdateThread.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/UpdateThread.cpp
 
+$(BINDIR)/Communicator.o: $(BINDIR) src/Communicator.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/Communicator.cpp
 
-# run tests
-test: .test-post
+$(BINDIR)/GlightsAboutDialog.o: $(BINDIR) src/GlightsAboutDialog.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/GlightsAboutDialog.cpp
 
-.test-pre: build-tests
-# Add your pre 'test' code here...
+$(BINDIR)/GlightsTimerDialog.o: $(BINDIR) src/GlightsTimerDialog.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/GlightsTimerDialog.cpp
 
-.test-post: .test-impl
-# Add your post 'test' code here...
-
-
-# help
-help: .help-post
-
-.help-pre:
-# Add your pre 'help' code here...
-
-.help-post: .help-impl
-# Add your post 'help' code here...
+$(BINDIR)/GlightsConnectDialog.o: $(BINDIR) src/GlightsConnectDialog.cpp
+	$(COMPILE.cc) $(CCFLAGS_GLights) $(CPPFLAGS_GLights) -o $@ src/GlightsConnectDialog.cpp
 
 
 
-# include project implementation makefile
-include nbproject/Makefile-impl.mk
+#### Clean target deletes all generated files ####
+clean:
+	rm -f \
+		$(DISTDIR)/GLights \
+		$(BINDIR)/main.o \
+		$(BINDIR)/GlightsNewRoundDialog.o \
+		$(BINDIR)/UpdateThread.o \
+		$(BINDIR)/Communicator.o \
+		$(BINDIR)/GlightsAboutDialog.o \
+		$(BINDIR)/GlightsTimerDialog.o \
+		$(BINDIR)/GlightsConnectDialog.o
+	$(CCADMIN)
+	rm -f -r $(BINDIR)
+	rm -f -r $(DISTDIR)
 
-# include project make variables
-include nbproject/Makefile-variables.mk
+
+# Create the target directory (if needed)
+$(BINDIR):
+	mkdir -p $(BINDIR)
+	
+$(DISTDIR):
+	mkdir -p $(DISTDIR)
+	cp GLights.glade $(DISTDIR)/.
+
+
+# Enable dependency checking
+.KEEP_STATE:
+.KEEP_STATE_FILE:.make.state.GNU-amd64-Linux
+

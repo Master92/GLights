@@ -19,7 +19,6 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <time.h>
-#include <bits/stdio2.h>
 #include "GlightsConnectDialog.h"
 #include "GlightsNewRoundDialog.h"
 #include "Communicator.h"

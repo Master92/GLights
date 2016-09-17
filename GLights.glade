@@ -6,8 +6,7 @@ Copyright (C) Nils Friedchen
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+as published by the Free Software Foundation version 2.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,11 +22,6 @@ Author: Nils Friedchen
 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
-  <!-- interface-license-type gplv2 -->
-  <!-- interface-name GLights -->
-  <!-- interface-description A simple programm to controll multiple archery-led-displays -->
-  <!-- interface-copyright Nils Friedchen -->
-  <!-- interface-authors Nils Friedchen -->
   <object class="GtkDialog" id="GlightsConnectDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
